@@ -117,13 +117,12 @@ namespace WindowsFormsApp.Forms
                 string imagesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
                 Directory.CreateDirectory(imagesDir);
 
-                string ext = Path.GetExtension(dlg.FileName);
-                string newName = "product_" + Guid.NewGuid().ToString("N") + ext;
+                string newName = "product_" + Guid.NewGuid().ToString("N") + ".png";
                 string newFullPath = Path.Combine(imagesDir, newName);
 
-                File.Copy(dlg.FileName, newFullPath);
+                SaveResized(dlg.FileName, newFullPath, 300, 200);
 
-                if (_currentImagePath != null && _currentImagePath != "" && File.Exists(_currentImagePath))
+                if (!string.IsNullOrEmpty(_currentImagePath) && File.Exists(_currentImagePath))
                 {
                     try { File.Delete(_currentImagePath); }
                     catch { }
@@ -134,7 +133,30 @@ namespace WindowsFormsApp.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Не удалось загрузить изображение: " + ex.Message);
+                MessageBox.Show("Не удалось загрузить изображение: " + ex.Message,
+                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static void SaveResized(string sourcePath, string destPath, int maxW, int maxH)
+        {
+            using (Image src = Image.FromFile(sourcePath))
+            {
+                double rx = (double)maxW / src.Width;
+                double ry = (double)maxH / src.Height;
+                double r = System.Math.Min(rx, ry);
+                if (r > 1) r = 1;
+                int w = (int)(src.Width * r);
+                int h = (int)(src.Height * r);
+                using (Bitmap bmp = new Bitmap(w, h))
+                {
+                    using (Graphics g = Graphics.FromImage(bmp))
+                    {
+                        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                        g.DrawImage(src, 0, 0, w, h);
+                    }
+                    bmp.Save(destPath, System.Drawing.Imaging.ImageFormat.Png);
+                }
             }
         }
 

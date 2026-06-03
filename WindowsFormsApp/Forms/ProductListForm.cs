@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using WindowsFormsApp.Models;
@@ -12,6 +13,7 @@ namespace WindowsFormsApp.Forms
     {
         private List<Product> _allProducts = new List<Product>();
         private static ProductEditForm _editForm;
+        private ProductCard _selectedCard;
 
         public ProductListForm()
         {
@@ -27,7 +29,7 @@ namespace WindowsFormsApp.Forms
 
         private void Filter_Changed(object sender, EventArgs e)
         {
-            RefreshGrid();
+            RefreshList();
         }
 
         private void ApplyRoleVisibility()
@@ -60,10 +62,7 @@ namespace WindowsFormsApp.Forms
                     Product p = new Product();
                     p.ProductId = (int)r["ProductId"];
                     p.ProductName = r["ProductName"].ToString();
-                    if (r["Description"] == DBNull.Value)
-                        p.Description = "";
-                    else
-                        p.Description = r["Description"].ToString();
+                    p.Description = r["Description"] == DBNull.Value ? "" : r["Description"].ToString();
                     p.CategoryId = (int)r["CategoryId"];
                     p.CategoryName = r["CategoryName"].ToString();
                     p.ManufacturerId = (int)r["ManufacturerId"];
@@ -75,24 +74,23 @@ namespace WindowsFormsApp.Forms
                     p.Price = (decimal)r["Price"];
                     p.Quantity = (int)r["Quantity"];
                     p.Discount = (int)r["Discount"];
-                    if (r["ImagePath"] == DBNull.Value)
-                        p.ImagePath = null;
-                    else
-                        p.ImagePath = r["ImagePath"].ToString();
+                    p.ImagePath = r["ImagePath"] == DBNull.Value ? null : r["ImagePath"].ToString();
                     _allProducts.Add(p);
                 }
 
                 ReloadSupplierFilter();
-                RefreshGrid();
+                RefreshList();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка загрузки товаров: " + ex.Message);
+                MessageBox.Show("Ошибка загрузки товаров: " + ex.Message, "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ReloadSupplierFilter()
         {
+            object prev = _supplierFilter.SelectedItem;
             _supplierFilter.Items.Clear();
             _supplierFilter.Items.Add("Все поставщики");
             List<string> added = new List<string>();
@@ -104,10 +102,13 @@ namespace WindowsFormsApp.Forms
                     _supplierFilter.Items.Add(p.SupplierName);
                 }
             }
-            _supplierFilter.SelectedIndex = 0;
+            if (prev != null && _supplierFilter.Items.Contains(prev))
+                _supplierFilter.SelectedItem = prev;
+            else
+                _supplierFilter.SelectedIndex = 0;
         }
 
-        private void RefreshGrid()
+        private void RefreshList()
         {
             List<Product> data = new List<Product>();
 
@@ -122,22 +123,14 @@ namespace WindowsFormsApp.Forms
                 {
                     if (query != "")
                     {
-                        string all = "";
-                        all += p.ProductName + " ";
-                        all += p.Description + " ";
-                        all += p.CategoryName + " ";
-                        all += p.ManufacturerName + " ";
-                        all += p.SupplierName + " ";
-                        all += p.UnitName;
+                        string all = p.ProductName + " " + p.Description + " " + p.CategoryName + " " +
+                                     p.ManufacturerName + " " + p.SupplierName + " " + p.UnitName;
                         if (!all.ToLower().Contains(query))
                             continue;
                     }
 
-                    if (supplier != "" && supplier != "Все поставщики")
-                    {
-                        if (p.SupplierName != supplier)
-                            continue;
-                    }
+                    if (supplier != "" && supplier != "Все поставщики" && p.SupplierName != supplier)
+                        continue;
 
                     data.Add(p);
                 }
@@ -153,51 +146,71 @@ namespace WindowsFormsApp.Forms
                     data.Add(p);
             }
 
-            BindGrid(data);
+            RenderCards(data);
         }
 
-        private void BindGrid(List<Product> list)
+        private void RenderCards(List<Product> list)
         {
-            _grid.Rows.Clear();
-            _grid.Columns.Clear();
-
-            _grid.Columns.Add("Id", "ID");
-            _grid.Columns.Add("Name", "Наименование");
-            _grid.Columns.Add("Category", "Категория");
-            _grid.Columns.Add("Manuf", "Производитель");
-            _grid.Columns.Add("Supplier", "Поставщик");
-            _grid.Columns.Add("Unit", "Ед.");
-            _grid.Columns.Add("Price", "Цена");
-            _grid.Columns.Add("Qty", "Кол-во");
-            _grid.Columns.Add("Discount", "Скидка, %");
+            _selectedCard = null;
+            _flow.SuspendLayout();
+            foreach (Control c in _flow.Controls)
+                c.Dispose();
+            _flow.Controls.Clear();
 
             foreach (Product p in list)
             {
-                string priceCell;
-                if (p.Discount > 0)
-                    priceCell = p.Price.ToString("N2") + " -> " + p.FinalPrice.ToString("N2");
-                else
-                    priceCell = p.Price.ToString("N2");
+                ProductCard card = new ProductCard(p);
+                card.Width = _flow.ClientSize.Width - 25;
+                card.Click += Card_Click;
+                WireClick(card);
+                card.CardDoubleClicked += Card_DoubleClicked;
+                _flow.Controls.Add(card);
+            }
 
-                int rowIndex = _grid.Rows.Add(p.ProductId, p.ProductName, p.CategoryName,
-                    p.ManufacturerName, p.SupplierName, p.UnitName, priceCell, p.Quantity, p.Discount);
+            _flow.ResumeLayout();
+            _emptyLabel.Visible = list.Count == 0;
+        }
 
-                _grid.Rows[rowIndex].Tag = p;
+        private void WireClick(Control root)
+        {
+            foreach (Control c in root.Controls)
+            {
+                c.Click += Card_Click;
+                WireClick(c);
             }
         }
 
-        private void Grid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void Card_Click(object sender, EventArgs e)
         {
-            if (e.RowIndex < 0)
-                return;
+            ProductCard card = sender as ProductCard;
+            if (card == null && sender is Control)
+                card = FindParentCard((Control)sender);
+            if (card == null) return;
+
+            if (_selectedCard != null && _selectedCard != card)
+                _selectedCard.BorderStyle = BorderStyle.FixedSingle;
+            _selectedCard = card;
+            card.BorderStyle = BorderStyle.Fixed3D;
+        }
+
+        private ProductCard FindParentCard(Control c)
+        {
+            while (c != null && !(c is ProductCard))
+                c = c.Parent;
+            return c as ProductCard;
+        }
+
+        private void Card_DoubleClicked(object sender, EventArgs e)
+        {
             if (!AppSession.IsAdmin)
             {
-                MessageBox.Show("Редактирование доступно только администратору.");
+                MessageBox.Show("Редактирование доступно только администратору.", "Доступ запрещён",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            Product product = (Product)_grid.Rows[e.RowIndex].Tag;
-            if (product != null)
-                OpenEditForm(product);
+            ProductCard card = sender as ProductCard;
+            if (card != null && card.Product != null)
+                OpenEditForm(card.Product);
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -209,7 +222,8 @@ namespace WindowsFormsApp.Forms
         {
             if (_editForm != null && !_editForm.IsDisposed)
             {
-                MessageBox.Show("Окно редактирования уже открыто.");
+                MessageBox.Show("Окно редактирования уже открыто.", "Информация",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _editForm.Activate();
                 return;
             }
@@ -227,18 +241,17 @@ namespace WindowsFormsApp.Forms
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            if (_grid.CurrentRow == null)
+            if (_selectedCard == null || _selectedCard.Product == null)
             {
-                MessageBox.Show("Выберите товар для удаления.");
+                MessageBox.Show("Выберите товар для удаления (один клик по карточке).", "Информация",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            Product product = (Product)_grid.CurrentRow.Tag;
-            if (product == null)
-                return;
+            Product product = _selectedCard.Product;
 
             if (MessageBox.Show("Удалить товар \"" + product.ProductName + "\"?", "Подтверждение",
-                MessageBoxButtons.YesNo) != DialogResult.Yes)
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
                 return;
 
             try
@@ -249,7 +262,8 @@ namespace WindowsFormsApp.Forms
 
                 if (count > 0)
                 {
-                    MessageBox.Show("Этот товар присутствует в заказах и не может быть удалён.");
+                    MessageBox.Show("Этот товар присутствует в заказах и не может быть удалён.",
+                        "Удаление невозможно", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -257,7 +271,7 @@ namespace WindowsFormsApp.Forms
                     "DELETE FROM Products WHERE ProductId = @id;",
                     new SqlParameter("@id", product.ProductId));
 
-                if (product.ImagePath != null && product.ImagePath != "" && File.Exists(product.ImagePath))
+                if (!string.IsNullOrEmpty(product.ImagePath) && File.Exists(product.ImagePath))
                 {
                     try { File.Delete(product.ImagePath); }
                     catch { }
@@ -267,7 +281,8 @@ namespace WindowsFormsApp.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка удаления: " + ex.Message);
+                MessageBox.Show("Ошибка удаления: " + ex.Message, "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

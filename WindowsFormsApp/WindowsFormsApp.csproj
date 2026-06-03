@@ -76,6 +76,12 @@
     <Compile Include="Forms\OrderEditForm.Designer.cs">
       <DependentUpon>OrderEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ProductCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\ProductCard.Designer.cs">
+      <DependentUpon>ProductCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
