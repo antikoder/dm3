@@ -41,7 +41,7 @@ namespace WindowsFormsApp
             {
                 if (CurrentUser == null)
                     return false;
-                if (CurrentUser.RoleName == "Клиент")
+                if (CurrentUser.RoleName == "Клиент" || CurrentUser.RoleName == "Авторизированный клиент")
                     return true;
                 return false;
             }
