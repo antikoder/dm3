@@ -31,51 +31,51 @@ namespace WindowsFormsApp.Forms
             this.SuspendLayout();
 
             this.codeLabel.AutoSize = true;
-            this.codeLabel.Location = new System.Drawing.Point(15, 20);
+            this.codeLabel.Location = new System.Drawing.Point(15, 15);
             this.codeLabel.Name = "codeLabel";
-            this.codeLabel.Text = "Артикул:";
+            this.codeLabel.Text = "Артикул";
 
-            this._codeBox.Location = new System.Drawing.Point(160, 17);
+            this._codeBox.Location = new System.Drawing.Point(15, 40);
             this._codeBox.Name = "_codeBox";
             this._codeBox.Size = new System.Drawing.Size(250, 27);
 
             this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(15, 55);
+            this.statusLabel.Location = new System.Drawing.Point(285, 15);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Text = "Статус:";
+            this.statusLabel.Text = "Статус";
 
             this._statusBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._statusBox.Location = new System.Drawing.Point(160, 52);
+            this._statusBox.Location = new System.Drawing.Point(285, 40);
             this._statusBox.Name = "_statusBox";
             this._statusBox.Size = new System.Drawing.Size(250, 28);
 
             this.pickupLabel.AutoSize = true;
-            this.pickupLabel.Location = new System.Drawing.Point(15, 90);
+            this.pickupLabel.Location = new System.Drawing.Point(15, 85);
             this.pickupLabel.Name = "pickupLabel";
-            this.pickupLabel.Text = "Пункт выдачи:";
+            this.pickupLabel.Text = "Пункт выдачи";
 
             this._pickupBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._pickupBox.Location = new System.Drawing.Point(160, 87);
+            this._pickupBox.Location = new System.Drawing.Point(15, 110);
             this._pickupBox.Name = "_pickupBox";
-            this._pickupBox.Size = new System.Drawing.Size(250, 28);
+            this._pickupBox.Size = new System.Drawing.Size(520, 28);
 
             this.orderDateLabel.AutoSize = true;
-            this.orderDateLabel.Location = new System.Drawing.Point(15, 125);
+            this.orderDateLabel.Location = new System.Drawing.Point(15, 155);
             this.orderDateLabel.Name = "orderDateLabel";
-            this.orderDateLabel.Text = "Дата заказа:";
+            this.orderDateLabel.Text = "Дата заказа";
 
             this._orderDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this._orderDatePicker.Location = new System.Drawing.Point(160, 122);
+            this._orderDatePicker.Location = new System.Drawing.Point(15, 180);
             this._orderDatePicker.Name = "_orderDatePicker";
             this._orderDatePicker.Size = new System.Drawing.Size(250, 27);
 
             this.deliveryDateLabel.AutoSize = true;
-            this.deliveryDateLabel.Location = new System.Drawing.Point(15, 160);
+            this.deliveryDateLabel.Location = new System.Drawing.Point(285, 155);
             this.deliveryDateLabel.Name = "deliveryDateLabel";
-            this.deliveryDateLabel.Text = "Дата выдачи:";
+            this.deliveryDateLabel.Text = "Дата выдачи";
 
             this._hasDeliveryBox.AutoSize = true;
-            this._hasDeliveryBox.Location = new System.Drawing.Point(160, 160);
+            this._hasDeliveryBox.Location = new System.Drawing.Point(285, 185);
             this._hasDeliveryBox.Name = "_hasDeliveryBox";
             this._hasDeliveryBox.Text = "Есть";
             this._hasDeliveryBox.UseVisualStyleBackColor = true;
@@ -83,29 +83,29 @@ namespace WindowsFormsApp.Forms
 
             this._deliveryDatePicker.Enabled = false;
             this._deliveryDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this._deliveryDatePicker.Location = new System.Drawing.Point(240, 158);
+            this._deliveryDatePicker.Location = new System.Drawing.Point(365, 182);
             this._deliveryDatePicker.Name = "_deliveryDatePicker";
             this._deliveryDatePicker.Size = new System.Drawing.Size(170, 27);
 
-            this._saveButton.Location = new System.Drawing.Point(160, 210);
+            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this._cancelButton.Location = new System.Drawing.Point(235, 245);
+            this._cancelButton.Name = "_cancelButton";
+            this._cancelButton.Size = new System.Drawing.Size(140, 35);
+            this._cancelButton.Text = "Отмена";
+            this._cancelButton.UseVisualStyleBackColor = true;
+
+            this._saveButton.Location = new System.Drawing.Point(395, 245);
             this._saveButton.Name = "_saveButton";
-            this._saveButton.Size = new System.Drawing.Size(140, 32);
+            this._saveButton.Size = new System.Drawing.Size(140, 35);
             this._saveButton.Text = "Сохранить";
             this._saveButton.UseVisualStyleBackColor = true;
             this._saveButton.Click += new System.EventHandler(this.SaveButton_Click);
 
-            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(310, 210);
-            this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(140, 32);
-            this._cancelButton.Text = "Отмена";
-            this._cancelButton.UseVisualStyleBackColor = true;
-
             this.CancelButton = this._cancelButton;
             this.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.ClientSize = new System.Drawing.Size(470, 260);
-            this.Controls.Add(this._cancelButton);
+            this.ClientSize = new System.Drawing.Size(550, 300);
             this.Controls.Add(this._saveButton);
+            this.Controls.Add(this._cancelButton);
             this.Controls.Add(this._deliveryDatePicker);
             this.Controls.Add(this._hasDeliveryBox);
             this.Controls.Add(this.deliveryDateLabel);

@@ -15,13 +15,41 @@ namespace WindowsFormsApp.Forms
 
         private void InitializeComponent()
         {
-            this._grid = new System.Windows.Forms.DataGridView();
             this._addButton = new System.Windows.Forms.Button();
             this._editButton = new System.Windows.Forms.Button();
             this._deleteButton = new System.Windows.Forms.Button();
             this._closeButton = new System.Windows.Forms.Button();
+            this._grid = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this._grid)).BeginInit();
             this.SuspendLayout();
+
+            this._addButton.Location = new System.Drawing.Point(10, 10);
+            this._addButton.Name = "_addButton";
+            this._addButton.Size = new System.Drawing.Size(140, 30);
+            this._addButton.Text = "Добавить";
+            this._addButton.UseVisualStyleBackColor = true;
+            this._addButton.Click += new System.EventHandler(this.AddButton_Click);
+
+            this._editButton.Location = new System.Drawing.Point(160, 10);
+            this._editButton.Name = "_editButton";
+            this._editButton.Size = new System.Drawing.Size(140, 30);
+            this._editButton.Text = "Изменить";
+            this._editButton.UseVisualStyleBackColor = true;
+            this._editButton.Click += new System.EventHandler(this.EditButton_Click);
+
+            this._deleteButton.Location = new System.Drawing.Point(310, 10);
+            this._deleteButton.Name = "_deleteButton";
+            this._deleteButton.Size = new System.Drawing.Size(140, 30);
+            this._deleteButton.Text = "Удалить";
+            this._deleteButton.UseVisualStyleBackColor = true;
+            this._deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+
+            this._closeButton.Location = new System.Drawing.Point(630, 10);
+            this._closeButton.Name = "_closeButton";
+            this._closeButton.Size = new System.Drawing.Size(140, 30);
+            this._closeButton.Text = "Закрыть";
+            this._closeButton.UseVisualStyleBackColor = true;
+            this._closeButton.Click += new System.EventHandler(this.CloseButton_Click);
 
             this._grid.AllowUserToAddRows = false;
             this._grid.AllowUserToDeleteRows = false;
@@ -29,7 +57,7 @@ namespace WindowsFormsApp.Forms
             this._grid.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 14F);
             this._grid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._grid.DefaultCellStyle.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this._grid.Location = new System.Drawing.Point(10, 10);
+            this._grid.Location = new System.Drawing.Point(10, 55);
             this._grid.MultiSelect = false;
             this._grid.Name = "_grid";
             this._grid.ReadOnly = true;
@@ -39,41 +67,13 @@ namespace WindowsFormsApp.Forms
             this._grid.Size = new System.Drawing.Size(760, 400);
             this._grid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Grid_CellDoubleClick);
 
-            this._addButton.Location = new System.Drawing.Point(10, 420);
-            this._addButton.Name = "_addButton";
-            this._addButton.Size = new System.Drawing.Size(150, 30);
-            this._addButton.Text = "Добавить";
-            this._addButton.UseVisualStyleBackColor = true;
-            this._addButton.Click += new System.EventHandler(this.AddButton_Click);
-
-            this._editButton.Location = new System.Drawing.Point(170, 420);
-            this._editButton.Name = "_editButton";
-            this._editButton.Size = new System.Drawing.Size(150, 30);
-            this._editButton.Text = "Изменить";
-            this._editButton.UseVisualStyleBackColor = true;
-            this._editButton.Click += new System.EventHandler(this.EditButton_Click);
-
-            this._deleteButton.Location = new System.Drawing.Point(330, 420);
-            this._deleteButton.Name = "_deleteButton";
-            this._deleteButton.Size = new System.Drawing.Size(150, 30);
-            this._deleteButton.Text = "Удалить";
-            this._deleteButton.UseVisualStyleBackColor = true;
-            this._deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
-
-            this._closeButton.Location = new System.Drawing.Point(620, 420);
-            this._closeButton.Name = "_closeButton";
-            this._closeButton.Size = new System.Drawing.Size(150, 30);
-            this._closeButton.Text = "Закрыть";
-            this._closeButton.UseVisualStyleBackColor = true;
-            this._closeButton.Click += new System.EventHandler(this.CloseButton_Click);
-
             this.Font = new System.Drawing.Font("Times New Roman", 14F);
             this.ClientSize = new System.Drawing.Size(784, 465);
+            this.Controls.Add(this._grid);
             this.Controls.Add(this._closeButton);
             this.Controls.Add(this._deleteButton);
             this.Controls.Add(this._editButton);
             this.Controls.Add(this._addButton);
-            this.Controls.Add(this._grid);
             this.Name = "OrderListForm";
             this.Text = "Заказы";
             ((System.ComponentModel.ISupportInitialize)(this._grid)).EndInit();

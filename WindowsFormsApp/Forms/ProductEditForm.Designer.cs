@@ -48,138 +48,136 @@ namespace WindowsFormsApp.Forms
             this.idLabel.AutoSize = true;
             this.idLabel.Location = new System.Drawing.Point(15, 15);
             this.idLabel.Name = "idLabel";
-            this.idLabel.Text = "ID:";
+            this.idLabel.Text = "ID";
 
-            this._idBox.Location = new System.Drawing.Point(160, 12);
+            this._idBox.Location = new System.Drawing.Point(15, 40);
             this._idBox.Name = "_idBox";
             this._idBox.ReadOnly = true;
-            this._idBox.Size = new System.Drawing.Size(100, 27);
-
-            this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(15, 50);
-            this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Text = "Название:";
-
-            this._nameBox.Location = new System.Drawing.Point(160, 47);
-            this._nameBox.Name = "_nameBox";
-            this._nameBox.Size = new System.Drawing.Size(360, 27);
-
-            this.descLabel.AutoSize = true;
-            this.descLabel.Location = new System.Drawing.Point(15, 85);
-            this.descLabel.Name = "descLabel";
-            this.descLabel.Text = "Описание:";
-
-            this._descBox.Location = new System.Drawing.Point(160, 82);
-            this._descBox.Multiline = true;
-            this._descBox.Name = "_descBox";
-            this._descBox.Size = new System.Drawing.Size(360, 60);
-
-            this.categoryLabel.AutoSize = true;
-            this.categoryLabel.Location = new System.Drawing.Point(15, 155);
-            this.categoryLabel.Name = "categoryLabel";
-            this.categoryLabel.Text = "Категория:";
-
-            this._categoryBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._categoryBox.Location = new System.Drawing.Point(160, 152);
-            this._categoryBox.Name = "_categoryBox";
-            this._categoryBox.Size = new System.Drawing.Size(220, 28);
-
-            this.manufacturerLabel.AutoSize = true;
-            this.manufacturerLabel.Location = new System.Drawing.Point(15, 190);
-            this.manufacturerLabel.Name = "manufacturerLabel";
-            this.manufacturerLabel.Text = "Производитель:";
-
-            this._manufacturerBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._manufacturerBox.Location = new System.Drawing.Point(160, 187);
-            this._manufacturerBox.Name = "_manufacturerBox";
-            this._manufacturerBox.Size = new System.Drawing.Size(220, 28);
-
-            this.supplierLabel.AutoSize = true;
-            this.supplierLabel.Location = new System.Drawing.Point(15, 225);
-            this.supplierLabel.Name = "supplierLabel";
-            this.supplierLabel.Text = "Поставщик:";
-
-            this._supplierBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._supplierBox.Location = new System.Drawing.Point(160, 222);
-            this._supplierBox.Name = "_supplierBox";
-            this._supplierBox.Size = new System.Drawing.Size(220, 28);
-
-            this.unitLabel.AutoSize = true;
-            this.unitLabel.Location = new System.Drawing.Point(15, 260);
-            this.unitLabel.Name = "unitLabel";
-            this.unitLabel.Text = "Ед.изм.:";
-
-            this._unitBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._unitBox.Location = new System.Drawing.Point(160, 257);
-            this._unitBox.Name = "_unitBox";
-            this._unitBox.Size = new System.Drawing.Size(140, 28);
-
-            this.priceLabel.AutoSize = true;
-            this.priceLabel.Location = new System.Drawing.Point(15, 295);
-            this.priceLabel.Name = "priceLabel";
-            this.priceLabel.Text = "Цена:";
-
-            this._priceBox.DecimalPlaces = 2;
-            this._priceBox.Increment = new decimal(new int[] { 100, 0, 0, 0 });
-            this._priceBox.Location = new System.Drawing.Point(160, 292);
-            this._priceBox.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            this._priceBox.Name = "_priceBox";
-            this._priceBox.Size = new System.Drawing.Size(140, 27);
-
-            this.quantityLabel.AutoSize = true;
-            this.quantityLabel.Location = new System.Drawing.Point(15, 330);
-            this.quantityLabel.Name = "quantityLabel";
-            this.quantityLabel.Text = "Кол-во:";
-
-            this._quantityBox.Location = new System.Drawing.Point(160, 327);
-            this._quantityBox.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
-            this._quantityBox.Name = "_quantityBox";
-            this._quantityBox.Size = new System.Drawing.Size(140, 27);
-
-            this.discountLabel.AutoSize = true;
-            this.discountLabel.Location = new System.Drawing.Point(15, 365);
-            this.discountLabel.Name = "discountLabel";
-            this.discountLabel.Text = "Скидка %:";
-
-            this._discountBox.Location = new System.Drawing.Point(160, 362);
-            this._discountBox.Name = "_discountBox";
-            this._discountBox.Size = new System.Drawing.Size(140, 27);
+            this._idBox.Size = new System.Drawing.Size(120, 27);
 
             this._imageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this._imageBox.Location = new System.Drawing.Point(550, 50);
+            this._imageBox.Location = new System.Drawing.Point(420, 15);
             this._imageBox.Name = "_imageBox";
-            this._imageBox.Size = new System.Drawing.Size(150, 150);
+            this._imageBox.Size = new System.Drawing.Size(180, 180);
             this._imageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this._imageBox.TabStop = false;
 
-            this._selectImageButton.Location = new System.Drawing.Point(550, 210);
+            this._selectImageButton.Location = new System.Drawing.Point(420, 200);
             this._selectImageButton.Name = "_selectImageButton";
-            this._selectImageButton.Size = new System.Drawing.Size(150, 30);
-            this._selectImageButton.Text = "Фото...";
+            this._selectImageButton.Size = new System.Drawing.Size(180, 30);
+            this._selectImageButton.Text = "Выбрать фото";
             this._selectImageButton.UseVisualStyleBackColor = true;
             this._selectImageButton.Click += new System.EventHandler(this.SelectImageButton_Click);
 
-            this._saveButton.Location = new System.Drawing.Point(160, 410);
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Location = new System.Drawing.Point(15, 80);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Text = "Название";
+
+            this._nameBox.Location = new System.Drawing.Point(15, 105);
+            this._nameBox.Name = "_nameBox";
+            this._nameBox.Size = new System.Drawing.Size(390, 27);
+
+            this.descLabel.AutoSize = true;
+            this.descLabel.Location = new System.Drawing.Point(15, 140);
+            this.descLabel.Name = "descLabel";
+            this.descLabel.Text = "Описание";
+
+            this._descBox.Location = new System.Drawing.Point(15, 165);
+            this._descBox.Multiline = true;
+            this._descBox.Name = "_descBox";
+            this._descBox.Size = new System.Drawing.Size(390, 70);
+
+            this.categoryLabel.AutoSize = true;
+            this.categoryLabel.Location = new System.Drawing.Point(15, 250);
+            this.categoryLabel.Name = "categoryLabel";
+            this.categoryLabel.Text = "Категория";
+
+            this._categoryBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._categoryBox.Location = new System.Drawing.Point(15, 275);
+            this._categoryBox.Name = "_categoryBox";
+            this._categoryBox.Size = new System.Drawing.Size(290, 28);
+
+            this.manufacturerLabel.AutoSize = true;
+            this.manufacturerLabel.Location = new System.Drawing.Point(315, 250);
+            this.manufacturerLabel.Name = "manufacturerLabel";
+            this.manufacturerLabel.Text = "Производитель";
+
+            this._manufacturerBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._manufacturerBox.Location = new System.Drawing.Point(315, 275);
+            this._manufacturerBox.Name = "_manufacturerBox";
+            this._manufacturerBox.Size = new System.Drawing.Size(290, 28);
+
+            this.supplierLabel.AutoSize = true;
+            this.supplierLabel.Location = new System.Drawing.Point(15, 315);
+            this.supplierLabel.Name = "supplierLabel";
+            this.supplierLabel.Text = "Поставщик";
+
+            this._supplierBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._supplierBox.Location = new System.Drawing.Point(15, 340);
+            this._supplierBox.Name = "_supplierBox";
+            this._supplierBox.Size = new System.Drawing.Size(290, 28);
+
+            this.unitLabel.AutoSize = true;
+            this.unitLabel.Location = new System.Drawing.Point(315, 315);
+            this.unitLabel.Name = "unitLabel";
+            this.unitLabel.Text = "Ед.изм.";
+
+            this._unitBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._unitBox.Location = new System.Drawing.Point(315, 340);
+            this._unitBox.Name = "_unitBox";
+            this._unitBox.Size = new System.Drawing.Size(290, 28);
+
+            this.priceLabel.AutoSize = true;
+            this.priceLabel.Location = new System.Drawing.Point(15, 380);
+            this.priceLabel.Name = "priceLabel";
+            this.priceLabel.Text = "Цена";
+
+            this._priceBox.DecimalPlaces = 2;
+            this._priceBox.Increment = new decimal(new int[] { 100, 0, 0, 0 });
+            this._priceBox.Location = new System.Drawing.Point(15, 405);
+            this._priceBox.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            this._priceBox.Name = "_priceBox";
+            this._priceBox.Size = new System.Drawing.Size(180, 27);
+
+            this.quantityLabel.AutoSize = true;
+            this.quantityLabel.Location = new System.Drawing.Point(215, 380);
+            this.quantityLabel.Name = "quantityLabel";
+            this.quantityLabel.Text = "Кол-во";
+
+            this._quantityBox.Location = new System.Drawing.Point(215, 405);
+            this._quantityBox.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            this._quantityBox.Name = "_quantityBox";
+            this._quantityBox.Size = new System.Drawing.Size(180, 27);
+
+            this.discountLabel.AutoSize = true;
+            this.discountLabel.Location = new System.Drawing.Point(415, 380);
+            this.discountLabel.Name = "discountLabel";
+            this.discountLabel.Text = "Скидка %";
+
+            this._discountBox.Location = new System.Drawing.Point(415, 405);
+            this._discountBox.Name = "_discountBox";
+            this._discountBox.Size = new System.Drawing.Size(190, 27);
+
+            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this._cancelButton.Location = new System.Drawing.Point(305, 460);
+            this._cancelButton.Name = "_cancelButton";
+            this._cancelButton.Size = new System.Drawing.Size(140, 35);
+            this._cancelButton.Text = "Отмена";
+            this._cancelButton.UseVisualStyleBackColor = true;
+
+            this._saveButton.Location = new System.Drawing.Point(465, 460);
             this._saveButton.Name = "_saveButton";
-            this._saveButton.Size = new System.Drawing.Size(140, 32);
+            this._saveButton.Size = new System.Drawing.Size(140, 35);
             this._saveButton.Text = "Сохранить";
             this._saveButton.UseVisualStyleBackColor = true;
             this._saveButton.Click += new System.EventHandler(this.SaveButton_Click);
 
-            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._cancelButton.Location = new System.Drawing.Point(310, 410);
-            this._cancelButton.Name = "_cancelButton";
-            this._cancelButton.Size = new System.Drawing.Size(140, 32);
-            this._cancelButton.Text = "Отмена";
-            this._cancelButton.UseVisualStyleBackColor = true;
-
             this.CancelButton = this._cancelButton;
             this.Font = new System.Drawing.Font("Times New Roman", 14F);
-            this.ClientSize = new System.Drawing.Size(720, 460);
-            this.Controls.Add(this._cancelButton);
+            this.ClientSize = new System.Drawing.Size(620, 510);
             this.Controls.Add(this._saveButton);
-            this.Controls.Add(this._selectImageButton);
-            this.Controls.Add(this._imageBox);
+            this.Controls.Add(this._cancelButton);
             this.Controls.Add(this._discountBox);
             this.Controls.Add(this.discountLabel);
             this.Controls.Add(this._quantityBox);
@@ -198,6 +196,8 @@ namespace WindowsFormsApp.Forms
             this.Controls.Add(this.descLabel);
             this.Controls.Add(this._nameBox);
             this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this._selectImageButton);
+            this.Controls.Add(this._imageBox);
             this.Controls.Add(this._idBox);
             this.Controls.Add(this.idLabel);
             this.Name = "ProductEditForm";
