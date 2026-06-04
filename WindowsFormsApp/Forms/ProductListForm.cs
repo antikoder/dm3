@@ -62,7 +62,10 @@ namespace WindowsFormsApp.Forms
                     Product p = new Product();
                     p.ProductId = (int)r["ProductId"];
                     p.ProductName = r["ProductName"].ToString();
-                    p.Description = r["Description"] == DBNull.Value ? "" : r["Description"].ToString();
+                    if (r["Description"] == DBNull.Value)
+                        p.Description = "";
+                    else
+                        p.Description = r["Description"].ToString();
                     p.CategoryId = (int)r["CategoryId"];
                     p.CategoryName = r["CategoryName"].ToString();
                     p.ManufacturerId = (int)r["ManufacturerId"];
@@ -74,7 +77,10 @@ namespace WindowsFormsApp.Forms
                     p.Price = (decimal)r["Price"];
                     p.Quantity = (int)r["Quantity"];
                     p.Discount = (int)r["Discount"];
-                    p.ImagePath = r["ImagePath"] == DBNull.Value ? null : r["ImagePath"].ToString();
+                    if (r["ImagePath"] == DBNull.Value)
+                        p.ImagePath = null;
+                    else
+                        p.ImagePath = r["ImagePath"].ToString();
                     _allProducts.Add(p);
                 }
 
@@ -136,9 +142,9 @@ namespace WindowsFormsApp.Forms
                 }
 
                 if (_sortBox.SelectedIndex == 1)
-                    data.Sort(delegate (Product a, Product b) { return a.Quantity - b.Quantity; });
+                    SortByQuantity(data, true);
                 else if (_sortBox.SelectedIndex == 2)
-                    data.Sort(delegate (Product a, Product b) { return b.Quantity - a.Quantity; });
+                    SortByQuantity(data, false);
             }
             else
             {
@@ -147,6 +153,28 @@ namespace WindowsFormsApp.Forms
             }
 
             RenderCards(data);
+        }
+
+        private void SortByQuantity(List<Product> list, bool ascending)
+        {
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                for (int j = 0; j < list.Count - 1 - i; j++)
+                {
+                    bool needSwap;
+                    if (ascending)
+                        needSwap = list[j].Quantity > list[j + 1].Quantity;
+                    else
+                        needSwap = list[j].Quantity < list[j + 1].Quantity;
+
+                    if (needSwap)
+                    {
+                        Product temp = list[j];
+                        list[j] = list[j + 1];
+                        list[j + 1] = temp;
+                    }
+                }
+            }
         }
 
         private void RenderCards(List<Product> list)

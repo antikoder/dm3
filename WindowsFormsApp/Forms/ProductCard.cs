@@ -36,7 +36,14 @@ namespace WindowsFormsApp.Forms
             Product = p;
 
             _titleLabel.Text = p.CategoryName + " | " + p.ProductName;
-            _descLabel.Text = "Описание: " + (string.IsNullOrEmpty(p.Description) ? "—" : p.Description);
+
+            string descText;
+            if (string.IsNullOrEmpty(p.Description))
+                descText = "—";
+            else
+                descText = p.Description;
+            _descLabel.Text = "Описание: " + descText;
+
             _manufLabel.Text = "Производитель: " + p.ManufacturerName;
             _suppLabel.Text = "Поставщик: " + p.SupplierName;
             _unitLabel.Text = "Единица измерения: " + p.UnitName;

@@ -8,7 +8,7 @@ namespace WindowsFormsApp
     {
         public static SqlConnection CreateConnection()
         {
-            string cs = ConfigurationManager.ConnectionStrings["WindowsFormsAppDB"].ConnectionString;
+            string cs = ConfigurationManager.ConnectionStrings["ShopDB"].ConnectionString;
             return new SqlConnection(cs);
         }
 

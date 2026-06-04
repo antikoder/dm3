@@ -4,17 +4,17 @@
 -- Нормализация: 3НФ, ссылочная целостность через FK
 -- =========================================================
 
-IF DB_ID('WindowsFormsAppDB') IS NOT NULL
+IF DB_ID('ShopDB') IS NOT NULL
 BEGIN
-    ALTER DATABASE WindowsFormsAppDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE WindowsFormsAppDB;
+    ALTER DATABASE ShopDB SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE ShopDB;
 END
 GO
 
-CREATE DATABASE WindowsFormsAppDB;
+CREATE DATABASE ShopDB;
 GO
 
-USE WindowsFormsAppDB;
+USE ShopDB;
 GO
 
 CREATE TABLE Roles
@@ -251,5 +251,5 @@ INSERT INTO OrderItems (OrderId, ProductId, Quantity) VALUES ((SELECT OrderId FR
 INSERT INTO OrderItems (OrderId, ProductId, Quantity) VALUES ((SELECT OrderId FROM Orders WHERE OrderCode=N'910'), (SELECT ProductId FROM Products WHERE ProductCode=N'E482R4'), 5);
 
 GO
-PRINT N'База данных WindowsFormsAppDB успешно создана.';
+PRINT N'База данных ShopDB успешно создана.';
 GO
